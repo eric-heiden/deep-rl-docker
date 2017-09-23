@@ -23,6 +23,8 @@ Here are some cool demos to run:
 ### Roboschool
 ```
 vglrun python3 $ROBOSCHOOL_PATH/agent_zoo/demo_race1.py
+```
+```
 vglrun python3 $ROBOSCHOOL_PATH/agent_zoo/demo_keyboard_humanoid1.py
 ```
 
