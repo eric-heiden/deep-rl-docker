@@ -17,6 +17,7 @@ if [ ! -d "/home/$USER/catkin_ws/src" ]; then
 fi
 
 cd "/home/$USER/"
+
 # mkdir dev
 # cd dev
 # pushd .

@@ -41,7 +41,9 @@ RUN apt-get update && apt-get install -y \
         libassimp-dev \
         libpython3.5-dev \
         libboost-python-dev \
-        libtinyxml-dev
+        libtinyxml-dev \
+        golang \
+        python-opencv
 
 RUN pip3 --no-cache-dir install \
     gym[all]==0.9.3 \
@@ -59,7 +61,8 @@ RUN pip3 --no-cache-dir install \
     Pillow \
     empy \
     tqdm \
-    pyopengl
+    pyopengl \
+    opencv-python
 
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix
@@ -76,6 +79,9 @@ RUN cd /opt && git clone https://github.com/olegklimov/bullet3 -b roboschool_sel
 RUN pip3 install -e /opt/roboschool
 
 COPY ./internal/ /
+
+# install VirtualGL
+RUN dpkg -i /virtualgl_2.5.2_amd64.deb && rm /virtualgl_2.5.2_amd64.deb
 
 # TensorBoard
 EXPOSE 6006
