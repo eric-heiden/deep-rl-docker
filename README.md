@@ -1,6 +1,8 @@
 # deep-rl-docker :whale: :robot:
 Docker image with OpenAI Gym, Baselines and Roboschool, utilizing TensorFlow and JupyterLab.
 
+![Roboschool](https://github.com/eric-heiden/deep-rl-docker/blob/doc/roboschool.png?raw=true)
+
 ## Build
 CPU version:
 ```
