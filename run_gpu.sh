@@ -18,7 +18,6 @@ nvidia-docker run \
 	--rm $DOCKER_VISUAL_NVIDIA -e QT_X11_NO_MITSHM=1 \
 	--volume=/home/:/home/:rw \
 	--volume=/root/:/root/:rw \
-	--volume=/dev/bus/usb:/dev/bus/usb:ro \
 	--env="USER_UID=${USER_UID}" \
 	--env="USER_GID=${USER_GID}" \
 	--env="USER=${USER}" \

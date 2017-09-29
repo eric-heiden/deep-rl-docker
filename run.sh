@@ -12,7 +12,6 @@ docker run \
 	--volume=/home/:/home/:rw \
 	--volume=$XSOCK:$XSOCK:rw \
 	--volume=$XAUTH:$XAUTH:rw \
-	--volume=/dev/bus/usb:/dev/bus/usb \
 	--env="XAUTHORITY=${XAUTH}" \
 	--env="USER_UID=${USER_UID}" \
 	--env="USER_GID=${USER_GID}" \
