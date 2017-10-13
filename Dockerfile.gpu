@@ -47,7 +47,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip3 --no-cache-dir install \
     gym[all]==0.9.3 \
-    baselines==0.1.4 \
     universe==0.21.3 \
     scikit-image \
     plotly \
@@ -67,6 +66,9 @@ RUN pip3 --no-cache-dir install \
 
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix
+
+# Install Baselines
+RUN cd /opt && git clone https://github.com/openai/baselines.git && cd baselines && pip install -e .
 
 # Install Roboschool
 ENV ROBOSCHOOL_PATH=/opt/roboschool
