@@ -10,6 +10,7 @@ xauth -b nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -b -f $XAUTH nmerge -
 docker run \
 	-it \
 	--volume=/home/:/home/:rw \
+	--volume=/Users/:/Users/:rw \
 	--volume=$XSOCK:$XSOCK:rw \
 	--volume=$XAUTH:$XAUTH:rw \
 	--env="XAUTHORITY=${XAUTH}" \
@@ -17,7 +18,7 @@ docker run \
 	--env="USER_GID=${USER_GID}" \
 	--env="DISPLAY=${DISPLAY}" \
 	--privileged=true \
-	uscresl/deep-rl-docker:tf1.3.0-gym0.9.3-baselines0.1.4-py3 \
+	uscresl/deep-rl-docker:tf1.3.0-gym0.9.3-py3 \
 	bash
 	# -p 6006:6006 \
 	# -p 8888:8888 \

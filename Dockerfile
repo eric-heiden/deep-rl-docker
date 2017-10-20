@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y \
         libpng12-dev \
         libzmq3-dev \
         git \
+        python \
+        python-pip \
         python-numpy \
         python-dev \
         python-opengl \
@@ -42,6 +44,7 @@ RUN apt-get update && apt-get install -y \
         libpython3.5-dev \
         libboost-python-dev \
         libtinyxml-dev \
+        libffi-dev \
         golang \
         python-opencv
 
@@ -61,7 +64,33 @@ RUN pip3 --no-cache-dir install \
     empy \
     tqdm \
     pyopengl \
-    opencv-python
+    opencv-python \
+    theano \
+    mujoco_py==0.5.7 \
+    h5py \
+    tables
+
+RUN pip2 --no-cache-dir install \
+    gym[all]==0.9.3 \
+    scikit-image \
+    plotly \
+    ipykernel \
+    jupyter \
+    jupyterlab \
+    matplotlib \
+    numpy \
+    scipy \
+    sklearn \
+    pandas \
+    Pillow \
+    empy \
+    tqdm \
+    pyopengl \
+    opencv-python \
+    theano \
+    mujoco_py==0.5.7 \
+    h5py \
+    tables
 
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix

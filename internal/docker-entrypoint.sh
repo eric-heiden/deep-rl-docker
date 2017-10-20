@@ -6,6 +6,7 @@ WHITE='\033[1;37m'
 export USER=wal
 
 # Clean up bashrc
+mkdir -p "/home/${USER}"
 echo "export USER=wal" > "/home/$USER/.bashrc"
 
 echo "export USER=$USER" >> "/home/$USER/.bashrc"
