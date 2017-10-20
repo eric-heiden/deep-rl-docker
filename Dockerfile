@@ -48,6 +48,9 @@ RUN apt-get update && apt-get install -y \
         golang \
         python-opencv
 
+RUN pip3 install --upgrade pip
+RUN pip2 install --upgrade pip
+
 RUN pip3 --no-cache-dir install \
     gym[all]==0.9.3 \
     scikit-image \
@@ -75,8 +78,6 @@ RUN pip2 --no-cache-dir install \
     scikit-image \
     plotly \
     ipykernel \
-    jupyter \
-    jupyterlab \
     matplotlib \
     numpy \
     scipy \
