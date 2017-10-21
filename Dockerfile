@@ -62,7 +62,9 @@ RUN pip3 --no-cache-dir install \
     Pillow \
     empy \
     tqdm \
-    pyopengl
+    pyopengl \
+    mujoco-py==0.5.7 \
+    ipdb
 
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix
