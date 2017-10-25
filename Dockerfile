@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
         build-essential \
         curl \
         nano \
+        vim \
         libfreetype6-dev \
         libpng12-dev \
         libzmq3-dev \
