@@ -15,14 +15,16 @@ DOCKER_VISUAL_NVIDIA="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/
 
 nvidia-docker run \
 	-it \
-	--rm $DOCKER_VISUAL_NVIDIA -e QT_X11_NO_MITSHM=1 \
+	--rm \
+	$DOCKER_VISUAL_NVIDIA \
 	--volume=/home/:/home/:rw \
-	--volume=/root/:/root/:rw \
 	--env="USER_UID=${USER_UID}" \
 	--env="USER_GID=${USER_GID}" \
 	--env="USER=${USER}" \
 	--env="DISPLAY" \
 	--privileged=true \
-	uscresl/deep-rl-docker:tf1.3.0-gym0.9.3-baselines0.1.4-gpu-py3 \
+	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3 \
+	-p 6006:6006 \
+	-p 8888:8888 \
 	bash
 xhost -local:root

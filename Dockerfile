@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.3.0-py3
+FROM tensorflow/tensorflow:1.4.0-rc1-py3
 MAINTAINER USC RESL <heiden@usc.edu>
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 USER=wal HOME=/home/wal
@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip3 install --upgrade pip
 
 RUN pip3 --no-cache-dir install \
-    gym[all]==0.9.3 \
+    gym[all]==0.9.4 \
     scikit-image \
     plotly \
     ipykernel \

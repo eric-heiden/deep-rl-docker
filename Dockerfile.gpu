@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.3.0-gpu-py3
+FROM tensorflow/tensorflow:1.4.0-rc1-gpu-py3
 MAINTAINER USC RESL <heiden@usc.edu>
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 USER=wal HOME=/home/wal
@@ -46,8 +46,7 @@ RUN apt-get update && apt-get install -y \
         python-opencv
 
 RUN pip3 --no-cache-dir install \
-    gym[all]==0.9.3 \
-    universe==0.21.3 \
+    gym[all]==0.9.4 \
     scikit-image \
     plotly \
     ipykernel \
@@ -62,13 +61,19 @@ RUN pip3 --no-cache-dir install \
     empy \
     tqdm \
     pyopengl \
-    opencv-python
+    mujoco-py==0.5.7 \
+    ipdb
 
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix
 
 # Install Baselines
-RUN cd /opt && git clone https://github.com/openai/baselines.git && cd baselines && pip install -e .
+# (Remove tensorflow from dependencies since we already installed the GPU version,
+# installing tensorflow again would deactivate GPU support!)
+RUN cd /opt && git clone https://github.com/openai/baselines.git \
+    && cd baselines \
+    && sed -i '/tensorflow/d' setup.py \
+    && pip install -e .
 
 # Install Roboschool
 ENV ROBOSCHOOL_PATH=/opt/roboschool

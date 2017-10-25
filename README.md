@@ -6,25 +6,31 @@ Docker image with OpenAI Gym, Baselines and Roboschool, utilizing TensorFlow and
 ## Build
 CPU version:
 ```
-docker build -f Dockerfile -t uscresl/deep-rl-docker:tf1.3.0-gym0.9.3-py3 .
+docker build -f Dockerfile -t uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-py3 .
 ```
 
 GPU version:
 ```
-docker build -f Dockerfile.gpu -t uscresl/deep-rl-docker:tf1.3.0-gym0.9.3-gpu-py3 .
+nvidia-docker build -f Dockerfile.gpu -t uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3 .
 ```
 
+Make sure the [NVIDIA requirements](https://www.tensorflow.org/install/install_linux#NVIDIARequirements) to run TensorFlow with GPU support are satisfied. It helps to follow NVIDIA's [cuDNN installation guide](http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html).
+
 ## Run
-Execute `run.sh` or `run_gpu.sh`.
+Execute `run.sh` or `run_gpu.sh`. This will run the container in foreground mode, i.e. its console becomes attached to the process’s standard input, output, and standard error.
 
 *All RL-related dependencies (Roboschool, Gym, etc.) are available from within the python3 environment.*
+
+Jupyter Lab will be published on port 8888. If you run TensorBoard it will be accessible on port 6006. Ports are tunneled through to your host system and can be reconfigured in `run.sh` or `run_gpu.sh`.
+
+The container will define a user (`$USER`) named `wal` which has its home folder under `/home/wal` on the host system via a shared volume.
 
 ## Save changes
 Commit changes made to the container (e.g. installations, file changes inside the container and not a shared volume) via
 ```
 docker commit $CONTAINER
 ```
-Where `$CONTAINER` is the ID of the docker container.
+Where `$CONTAINER` is the ID of the docker container. Issue `docker ps` to see all installed containers and their ID's.
 
 ## Resume
 Start and reattach an existing docker container via
@@ -44,6 +50,7 @@ vglrun python3 $ROBOSCHOOL_PATH/agent_zoo/demo_race1.py
 ```
 vglrun python3 $ROBOSCHOOL_PATH/agent_zoo/demo_keyboard_humanoid1.py
 ```
+VirtualGL (`vglrun`) is required to support hardware-accelerated rendering.
 
 ### OpenAI Gym (from the [OpenAI blog post on DQN](https://blog.openai.com/openai-baselines-dqn/))
 ```
