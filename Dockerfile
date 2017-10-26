@@ -67,6 +67,18 @@ RUN pip3 --no-cache-dir install \
     mujoco-py==0.5.7 \
     ipdb
 
+# Set up permissions to use same UID and GID as host system user
+# https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
+RUN apt-get -y --no-install-recommends install \
+    ca-certificates \
+    curl
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
+RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture)" \
+    && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture).asc" \
+    && gpg --verify /usr/local/bin/gosu.asc \
+    && rm /usr/local/bin/gosu.asc \
+    && chmod +x /usr/local/bin/gosu
+
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix
 
