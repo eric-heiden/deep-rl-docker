@@ -22,9 +22,8 @@ nvidia-docker run \
 	--env="USER_GID=${USER_GID}" \
 	--env="USER=${USER}" \
 	--env="DISPLAY" \
-	--privileged=true \
-	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3 \
 	-p 6006:6006 \
 	-p 8888:8888 \
-	bash
+	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3 \
+	terminator
 xhost -local:root

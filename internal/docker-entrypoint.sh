@@ -2,10 +2,18 @@
 
 export USER=wal
 
-# Clean up bashrc
-echo "export USER=wal" > "/home/$USER/.bashrc"
+# Add local user
+# Either use the USER_UID if passed in at runtime or
+# fallback
 
-echo "export USER=$USER" >> "/home/$USER/.bashrc"
+USER_ID=${USER_UID:-9001}
+
+echo "Starting with UID: $USER_ID"
+useradd --shell /bin/bash -u $USER_ID -o -c "" -m $USER
+
+# Clean up bashrc
+echo "export USER=$USER" > "/home/$USER/.bashrc"
+
 echo "export HOME=/home/$USER" >> "/home/$USER/.bashrc"
 export HOME=/home/$USER
 
@@ -22,4 +30,4 @@ cd "/home/$USER/"
 
 # jupyter lab --allow-root --ip=* --port=8888 --no-browser &
 
-bash
+exec /usr/local/bin/gosu $USER "$@"

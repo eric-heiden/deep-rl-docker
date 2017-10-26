@@ -17,8 +17,7 @@ docker run \
 	--env="USER_UID=${USER_UID}" \
 	--env="USER_GID=${USER_GID}" \
 	--env="DISPLAY=${DISPLAY}" \
-	--privileged=true \
-	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-py3 \
 	-p 6006:6006 \
 	-p 8888:8888 \
-	bash
+	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-py3 \
+	terminator

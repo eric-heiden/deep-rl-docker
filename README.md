@@ -23,7 +23,7 @@ Execute `run.sh` or `run_gpu.sh`. This will run the container in foreground mode
 
 Jupyter Lab will be published on port 8888. If you run TensorBoard it will be accessible on port 6006. Ports are tunneled through to your host system and can be reconfigured in `run.sh` or `run_gpu.sh`.
 
-The container will define a user (`$USER`) named `wal` which has its home folder under `/home/wal` on the host system via a shared volume.
+The container will define a user (`$USER`) named `wal` which has its home folder under `/home/wal` on the host system via a shared volume. This user has the same user identifier (UID) as the host system's user running the container to ensure file permissions are set up correctly in the shared volumes.
 
 ## Save changes
 Commit changes made to the container (e.g. installations, file changes inside the container and not a shared volume) via
@@ -61,5 +61,4 @@ python3 -m baselines.deepq.experiments.enjoy_cartpole
 ```
 
 ## TODO
-* Avoid privileged mode (su access) when running a container
 * Fix Roboschool, Baselines dependency to specific GitHub-commit(?)
