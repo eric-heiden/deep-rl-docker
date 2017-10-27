@@ -25,5 +25,5 @@ nvidia-docker run \
 	-p 6006:6006 \
 	-p 8888:8888 \
 	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3 \
-	terminator
+	bash
 xhost -local:root

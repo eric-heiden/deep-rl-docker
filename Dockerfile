@@ -98,8 +98,27 @@ RUN pip3 install -e /opt/roboschool
 
 COPY ./internal/ /
 
-# install VirtualGL
+# Install VirtualGL
 RUN dpkg -i /virtualgl_2.5.2_amd64.deb && rm /virtualgl_2.5.2_amd64.deb
+
+# Install MuJoCo 1.50 and 1.31
+WORKDIR $HOME
+RUN mkdir .mujoco && cd .mujoco \
+    && wget https://www.roboti.us/download/mjpro150_linux.zip \
+    && unzip mjpro150_linux.zip \
+    && rm mjpro150_linux.zip \
+    && wget https://www.roboti.us/download/mjpro131_linux.zip \
+    && unzip mjpro131_linux.zip \
+    && rm mjpro131_linux.zip \
+    && if [ -f "/mjkey.txt" ]; \
+        then \
+            mv /mjkey.txt . && \
+            cp mjkey.txt mjpro150/bin/ && \
+            cp mjkey.txt mjpro131/bin/ && \
+            echo "Installed MuJoCo Key file." ; \
+        else \
+            echo "Could not find MuJoCo key file (mjkey.txt) in ./internal!\nPlease copy it manually to $HOME/.mujoco/..." 1>&2 ; \
+       fi
 
 # TensorBoard
 EXPOSE 6006

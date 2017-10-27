@@ -1,9 +1,11 @@
 # deep-rl-docker :whale: :robot:
-Docker image with OpenAI Gym, Baselines and Roboschool, utilizing TensorFlow and JupyterLab.
+Docker image with OpenAI Gym, Baselines, MuJoCo and Roboschool, utilizing TensorFlow and JupyterLab.
 
 ![Roboschool](https://github.com/eric-heiden/deep-rl-docker/blob/doc/roboschool.png?raw=true)
 
 ## Build
+MoJoCo 1.50 and 1.31 will be installed under `.mujoco` in the container's home directory. Provide your MuJoCo key file (`mjkey.txt`) in the directory `internal` so that it can be placed at the required locations of the MuJoCo installations. At the moment, only institutional licenses are supported.
+
 CPU version:
 ```
 docker build -f Dockerfile -t uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-py3 .

@@ -12,10 +12,12 @@ echo "Starting with UID: $USER_ID"
 useradd --shell /bin/bash -u $USER_ID -o -c "" -m $USER
 
 # Clean up bashrc
-echo "export USER=$USER" > "/home/$USER/.bashrc"
+echo "export USER=$USER" >> "/home/$USER/.bashrc"
 
 echo "export HOME=/home/$USER" >> "/home/$USER/.bashrc"
 export HOME=/home/$USER
+
+echo "export \$(dbus-launch)" >> "/home/$USER/.bashrc"
 
 cd "/home/$USER/"
 
