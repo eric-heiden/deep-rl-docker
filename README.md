@@ -63,4 +63,4 @@ python3 -m baselines.deepq.experiments.enjoy_cartpole
 ```
 
 ## TODO
-* Fix Roboschool, Baselines dependency to specific GitHub-commit(?)
+* Fix Roboschool, Baselines dependency to specific GitHub-commit
