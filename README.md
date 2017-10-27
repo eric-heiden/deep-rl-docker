@@ -27,6 +27,24 @@ Jupyter Lab will be published on port 8888. If you run TensorBoard it will be ac
 
 The container will define a user (`$USER`) named `wal` which has its home folder under `/home/wal` on the host system via a shared volume. This user has the same user identifier (UID) as the host system's user running the container to ensure file permissions are set up correctly in the shared volumes.
 
+### Running deep-rl-docker on OSX with visualizations
+Currently we do not have a solution to run the *deep-rl-docker* on OSX with visualizations in roboschool due to OpenGL problems. A workaround using Oracle VirtualBox that works with Virtual Machines (VMs) is listed below:
+
+1. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+2. In VirtualBox, create a VM for *Linux, Ubuntu (64-bit)* with the following settings:
+	- Memory size: 5 GB+ 
+	- Hard drive: *Create a virtual hard disk*, check *VDI*, check *Fixed size*, assign 20 GB+
+	- Select your new VM in VirtualBox, and press the *Settings* icon
+	- Under *Display*: Video Memory: maximum (128 MB), check *Enable 3D Acceleration*, 
+3. Download [Ubuntu](https://www.ubuntu.com/download/desktop) and install it in the virtual machine you created in the previous step.
+4. Follow [this guide](https://www.linuxbabe.com/virtualbox/speed-up-ubuntu-virtualbox) to install *VirtualBox Guest Additions* for Linux.
+5. Execute the following command to install *CompizConfig Settings Manager*:
+```
+sudo apt-get install compizconfig-settings-manager
+```
+6. Launch *CompizConfig*, click on *OpenGL*, put Texture Filter: *Fast*, uncheck *Framebuffer object*
+7. Reboot your machine, and execute ```run.sh``` or ```run_gpu.sh```.
+
 ## Save changes
 Commit changes made to the container (e.g. installations, file changes inside the container and not a shared volume) via
 ```
@@ -63,4 +81,4 @@ python3 -m baselines.deepq.experiments.enjoy_cartpole
 ```
 
 ## TODO
-* Fix Roboschool, Baselines dependency to specific GitHub-commit
+* Fix Roboschool, Baselines dependency to specific GitHub-commit(?), retry full install on OSX/improve
