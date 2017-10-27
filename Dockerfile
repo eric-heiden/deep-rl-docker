@@ -44,7 +44,8 @@ RUN apt-get update && apt-get install -y \
         libboost-python-dev \
         libtinyxml-dev \
         golang \
-        python-opencv
+        python-opencv \
+	terminator
 
 RUN pip3 install --upgrade pip
 
