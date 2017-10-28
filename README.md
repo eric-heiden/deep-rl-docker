@@ -65,12 +65,13 @@ Here are some cool demos to run:
 
 ### Roboschool
 ```bash
-vglrun python3 $ROBOSCHOOL_PATH/agent_zoo/demo_race1.py
+[vglrun] python3 $ROBOSCHOOL_PATH/agent_zoo/demo_race1.py
 ```
 ```bash
-vglrun python3 $ROBOSCHOOL_PATH/agent_zoo/demo_keyboard_humanoid1.py
+[vglrun] python3 $ROBOSCHOOL_PATH/agent_zoo/demo_keyboard_humanoid1.py
 ```
-VirtualGL (`vglrun`) is required to support hardware-accelerated rendering.
+VirtualGL (`vglrun`) is required to support hardware-accelerated rendering if the NVIDIA drivers are not set up.
+*This command should be omitted when running the NVIDIA GPU version of this container.*
 
 ### MuJoCo
 Make sure the OpenGL libraries from your host system are available in `/external_libs`, as configured when running the container via `run_gpu.sh`.

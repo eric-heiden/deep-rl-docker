@@ -1,25 +1,23 @@
 #!/bin/bash
 
 export USER=wal
+export HOME=/home/$USER
 
 # Add local user
 # Either use the USER_UID if passed in at runtime or
 # fallback
-
 USER_ID=${USER_UID:-9001}
 
 echo "Starting with UID: $USER_ID"
 useradd --shell /bin/bash -u $USER_ID -o -c "" -m $USER
 
-# Clean up bashrc
-echo "export USER=$USER" >> "/home/$USER/.bashrc"
+echo "export USER=$USER" >> "$HOME/.bashrc"
+echo "export HOME=$HOME" >> "$HOME/.bashrc"
 
-echo "export HOME=/home/$USER" >> "/home/$USER/.bashrc"
-export HOME=/home/$USER
+echo "export \$(dbus-launch)" >> "$HOME/.bashrc"
+echo "export LD_LIBRARY_PATH=/external_libs:\$LD_LIBRARY_PATH" >> "$HOME/.bashrc"
 
-echo "export \$(dbus-launch)" >> "/home/$USER/.bashrc"
-
-cd "/home/$USER/"
+cd $HOME
 
 
 # # echo "export PYTHONPATH=/opt/rllab:$PYTHONPATH" >> "/home/$USER/.bashrc"

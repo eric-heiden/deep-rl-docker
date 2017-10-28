@@ -45,7 +45,11 @@ RUN apt-get update && apt-get install -y \
         libtinyxml-dev \
         golang \
         python-opencv \
-	terminator
+        terminator \
+        libcanberra-gtk-module \
+        libfuse2 \
+        libnss3 \
+        fuse
 
 RUN pip3 install --upgrade pip
 
@@ -66,7 +70,8 @@ RUN pip3 --no-cache-dir install \
     tqdm \
     pyopengl \
     mujoco-py==0.5.7 \
-    ipdb
+    ipdb \
+    cloudpickle
 
 # Set up permissions to use same UID and GID as host system user
 # https://denibertovic.com/posts/handling-permissions-with-docker-volumes/

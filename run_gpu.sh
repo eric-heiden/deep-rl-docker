@@ -15,10 +15,10 @@ if [ -z ${NVIDIA_DRIVER+x} ]; then
 	NVIDIA_DRIVER=$(nvidia-settings -q NvidiaDriverVersion | head -2 | tail -1 | sed 's/.*\([0-9][0-9][0-9]\).*/\1/') ;
 fi
 if [ -z ${NVIDIA_DRIVER+x} ]; then
-	echo "Error: Could not determine NVIDIA driver version number. Please specify your driver version number manually in $0." &1>2 ;
+	echo "Error: Could not determine NVIDIA driver version number. Please specify your driver version number manually in $0." 1>&2 ;
 	exit ;
 else
-	echo "Linking to NVIDIA driver version $NVIDIA_DRIVER..." &1>2 ;
+	echo "Linking to NVIDIA driver version $NVIDIA_DRIVER..." ;
 fi
 
 
@@ -39,6 +39,10 @@ nvidia-docker run \
 	--env="DISPLAY" \
 	-p 6006:6006 \
 	-p 8888:8888 \
+	--cap-add SYS_ADMIN \
+	--cap-add MKNOD \
+	--device /dev/fuse \
+	--security-opt apparmor:unconfined \
 	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3 \
 	bash
 xhost -local:root
