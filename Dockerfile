@@ -49,7 +49,8 @@ RUN apt-get update && apt-get install -y \
         libcanberra-gtk-module \
         libfuse2 \
         libnss3 \
-        fuse
+        fuse \
+        python3-tk
 
 RUN pip3 install --upgrade pip
 
