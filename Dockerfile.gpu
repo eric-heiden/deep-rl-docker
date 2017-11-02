@@ -46,6 +46,7 @@ RUN apt-get update && apt-get install -y \
         golang \
         python-opencv \
         terminator \
+        tmux \
         libcanberra-gtk-module \
         libfuse2 \
         libnss3 \
