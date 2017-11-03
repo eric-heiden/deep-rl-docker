@@ -36,6 +36,7 @@ nvidia-docker run \
 	--env="USER_UID=${USER_UID}" \
 	--env="USER_GID=${USER_GID}" \
 	--env="USER=${USER}" \
+	--env="HOME=${HOME}/.deep-rl-docker" \
 	--env="DISPLAY" \
 	-p 6006:6006 \
 	-p 8888:8888 \

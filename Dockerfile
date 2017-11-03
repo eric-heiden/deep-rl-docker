@@ -95,8 +95,9 @@ RUN cd /opt && git clone https://github.com/openai/baselines.git && cd baselines
 
 # Install Roboschool
 ENV ROBOSCHOOL_PATH=/opt/roboschool
+WORKDIR /opt
 RUN git clone https://github.com/openai/roboschool.git /opt/roboschool
-RUN cd /opt && git clone https://github.com/olegklimov/bullet3 -b roboschool_self_collision \
+RUN git clone https://github.com/olegklimov/bullet3 -b roboschool_self_collision \
     && mkdir bullet3/build \
     && cd    bullet3/build \
     && cmake -DBUILD_SHARED_LIBS=ON -DUSE_DOUBLE_PRECISION=1 -DCMAKE_INSTALL_PREFIX:PATH=$ROBOSCHOOL_PATH/roboschool/cpp-household/bullet_local_install -DBUILD_CPU_DEMOS=OFF -DBUILD_BULLET2_DEMOS=OFF -DBUILD_EXTRAS=OFF  -DBUILD_UNIT_TESTS=OFF -DBUILD_CLSOCKET=OFF -DBUILD_ENET=OFF -DBUILD_OPENGL3_DEMOS=OFF .. \
@@ -110,7 +111,7 @@ COPY ./internal/ /
 RUN dpkg -i /virtualgl_2.5.2_amd64.deb && rm /virtualgl_2.5.2_amd64.deb
 
 # Install MuJoCo 1.50 and 1.31
-WORKDIR $HOME
+WORKDIR /opt
 RUN mkdir .mujoco && cd .mujoco \
     && wget https://www.roboti.us/download/mjpro150_linux.zip \
     && unzip mjpro150_linux.zip \
@@ -125,7 +126,7 @@ RUN mkdir .mujoco && cd .mujoco \
             cp mjkey.txt mjpro131/bin/ && \
             echo "Installed MuJoCo Key file." ; \
         else \
-            echo "Could not find MuJoCo key file (mjkey.txt) in ./internal!\nPlease copy it manually to $HOME/.mujoco/..." 1>&2 ; \
+            echo "Could not find MuJoCo key file (mjkey.txt) in ./internal!\nPlease copy it manually to /opt/.mujoco/..." 1>&2 ; \
        fi
 
 # TensorBoard

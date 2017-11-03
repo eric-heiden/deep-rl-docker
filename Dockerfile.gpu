@@ -1,7 +1,16 @@
 FROM tensorflow/tensorflow:1.4.0-rc1-gpu-py3
 MAINTAINER USC RESL <heiden@usc.edu>
 
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 USER=wal HOME=/home/wal
+ARG USER
+ARG HOME
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 USER=$USER HOME=$HOME
+
+RUN echo "The working directory is: $HOME"
+RUN echo "The user is: $USER"
+
+RUN mkdir -p $HOME
+WORKDIR $HOME
 
 RUN apt-get update && apt-get install -y \
         sudo \
@@ -69,7 +78,6 @@ RUN pip3 --no-cache-dir install \
     empy \
     tqdm \
     pyopengl \
-    mujoco-py==0.5.7 \
     ipdb \
     cloudpickle
 
@@ -115,7 +123,7 @@ COPY ./internal/ /
 RUN dpkg -i /virtualgl_2.5.2_amd64.deb && rm /virtualgl_2.5.2_amd64.deb
 
 # Install MuJoCo 1.50 and 1.31
-WORKDIR $HOME
+WORKDIR /opt
 RUN mkdir .mujoco && cd .mujoco \
     && wget https://www.roboti.us/download/mjpro150_linux.zip \
     && unzip mjpro150_linux.zip \
@@ -130,8 +138,16 @@ RUN mkdir .mujoco && cd .mujoco \
             cp mjkey.txt mjpro131/bin/ && \
             echo "Installed MuJoCo Key file." ; \
         else \
-            echo "Could not find MuJoCo key file (mjkey.txt) in ./internal!\nPlease copy it manually to $HOME/.mujoco/..." 1>&2 ; \
+            echo "Could not find MuJoCo key file (mjkey.txt) in ./internal!\nPlease copy it manually to /opt/.mujoco/..." 1>&2 ; \
        fi
+ENV MUJOCO_KEY_FILE=/opt/mjkey.txt MUJOCO_PATH=/opt/mjpro131
+
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    libffi-dev
+
+RUN cd /mujoco-py-master && pip install -r requirements.txt 
+RUN pip3 install -e /mujoco-py-master
 
 # TensorBoard
 EXPOSE 6006
