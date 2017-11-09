@@ -45,6 +45,8 @@ sudo apt-get install compizconfig-settings-manager
 6. Launch *CompizConfig*, click on *OpenGL*, put Texture Filter: *Fast*, uncheck *Framebuffer object*
 7. Reboot your machine, and execute ```run.sh``` or ```run_gpu.sh```.
 
+Running the image natively might cause the Docker disk image to grow indefinitely, a known bug in Docker to which a workaround exists [here](https://github.com/docker/for-mac/issues/371#issuecomment-315385246).
+
 ## Save changes
 Commit changes made to the container (e.g. installations, file changes inside the container and not a shared volume) via
 ```bash
