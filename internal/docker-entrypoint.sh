@@ -21,15 +21,21 @@ echo "export HOME=$DOCKER_HOME" >> "$DOCKER_HOME/.bashrc"
 echo "export \$(dbus-launch)" >> "$DOCKER_HOME/.bashrc"
 echo "export LD_LIBRARY_PATH=/external_libs:\$LD_LIBRARY_PATH" >> "$DOCKER_HOME/.bashrc"
 
+echo "export MUJOCO_PY_MJPRO_PATH=/opt/mujoco/mjpro131" >> "$DOCKER_HOME/.bashrc"
+echo "export LD_LIBRARY_PATH=/opt/mujoco/mjpro131/bin:\$LD_LIBRARY_PATH" >> "$DOCKER_HOME/.bashrc"
+
 if [ -f "/opt/mujoco/mjkey.txt" ]; \
 then \
-    echo "export MUJOCO_PY_MJPRO_PATH=/opt/mujoco/mjpro131" >> "$DOCKER_HOME/.bashrc"
 	echo "export MUJOCO_LICENSE_KEY=/opt/mujoco/mjkey.txt" >> "$DOCKER_HOME/.bashrc"
-	echo "export MUJOCO_PY_MUJOCO_PATH=/opt/mujoco" >> "$DOCKER_HOME/.bashrc"
 	echo "export MUJOCO_PY_MJKEY_PATH=/opt/mujoco/mjkey.txt" >> "$DOCKER_HOME/.bashrc"
-	echo "export LD_LIBRARY_PATH=/opt/mujoco/mjpro150/bin:\$LD_LIBRARY_PATH" >> "$DOCKER_HOME/.bashrc"
 else \
-    echo "Please manually copy your MoJoCo key file (mjkey.txt) to ~/.mujoco when inside the docker container." 1>&2 ; \
+	if [ -f "~/.mujoco/mjkey.txt" ]; \
+	then \
+		echo "export MUJOCO_LICENSE_KEY=~/.mujoco/mjkey.txt" >> "$DOCKER_HOME/.bashrc"
+		echo "export MUJOCO_PY_MJKEY_PATH=~/.mujoco/mjkey.txt" >> "$DOCKER_HOME/.bashrc"
+	else \
+	    echo "Please manually copy your MoJoCo key file (mjkey.txt) to ~/.mujoco when inside the docker container." 1>&2 ; \
+	fi \
 fi
 
 
