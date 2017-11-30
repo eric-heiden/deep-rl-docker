@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.4.0-rc1-gpu-py3
+FROM tensorflow/tensorflow:1.4.0-gpu-py3
 MAINTAINER USC RESL <heiden@usc.edu>
 
 ARG USER
@@ -70,7 +70,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     xpra \
     xserver-xorg-dev \
     libffi-dev \
-    libxslt1.1
+    libxslt1.1 \
+    feedgnuplot
 
 RUN pip3 install --upgrade pip
 

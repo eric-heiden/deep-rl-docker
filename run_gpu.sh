@@ -44,5 +44,5 @@ nvidia-docker run \
 	--cap-add MKNOD \
 	--device /dev/fuse \
 	--security-opt apparmor:unconfined \
-	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3
+	uscresl/deep-rl-docker:tf1.4.0-gym0.9.4-gpu-py3
 xhost -local:root

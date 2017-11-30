@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.4.0-rc1-py3
+FROM tensorflow/tensorflow:1.4.0-py3
 MAINTAINER USC RESL <heiden@usc.edu>
 
 ARG USER
