@@ -23,5 +23,4 @@ docker run \
 	--cap-add MKNOD \
 	--device /dev/fuse \
 	--security-opt apparmor:unconfined \
-	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-py3 \
-	bash 
+	uscresl/deep-rl-docker:tf1.4.0-gym0.9.4-py3

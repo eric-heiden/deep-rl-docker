@@ -6,17 +6,13 @@ Docker image with OpenAI Gym, Baselines, MuJoCo and Roboschool, utilizing Tensor
 ## Build
 MoJoCo 1.50 and 1.31 will be installed under `.mujoco` in the container's home directory. Provide your MuJoCo key file (`mjkey.txt`) in the directory `internal` so that it can be placed at the required locations of the MuJoCo installations. At the moment, only institutional licenses are supported.
 
-CPU version:
+Dependent on the device version (CPU-only or NVIDIA GPU support), build the container as follows:
 ```bash
-docker build -f Dockerfile -t uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-py3 .
+./build.sh [cpu|gpu]
 ```
+If no first argument for device type is provided the CPU version will be installed.
 
-GPU version:
-```bash
-nvidia-docker build -f Dockerfile.gpu -t uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3 .
-```
-
-Make sure the [NVIDIA requirements](https://www.tensorflow.org/install/install_linux#NVIDIARequirements) to run TensorFlow with GPU support are satisfied. It helps to follow NVIDIA's [cuDNN installation guide](http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html).
+When using the GPU version, make sure the [NVIDIA requirements](https://www.tensorflow.org/install/install_linux#NVIDIARequirements) to run TensorFlow with GPU support are satisfied. It helps to follow NVIDIA's [cuDNN installation guide](http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html).
 
 ## Run
 Execute `run.sh` or `run_gpu.sh`. This will run the container in foreground mode, i.e. its console becomes attached to the process’s standard input, output, and standard error.

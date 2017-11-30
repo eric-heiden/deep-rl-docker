@@ -36,6 +36,7 @@ nvidia-docker run \
 	--env="USER_UID=${USER_UID}" \
 	--env="USER_GID=${USER_GID}" \
 	--env="USER=${USER}" \
+	--env="HOME=${HOME}/.deep-rl-docker" \
 	--env="DISPLAY" \
 	-p 6006:6006 \
 	-p 8888:8888 \
@@ -43,6 +44,5 @@ nvidia-docker run \
 	--cap-add MKNOD \
 	--device /dev/fuse \
 	--security-opt apparmor:unconfined \
-	uscresl/deep-rl-docker:tf1.4.0rc1-gym0.9.4-gpu-py3 \
-	bash
+	uscresl/deep-rl-docker:tf1.4.0-gym0.9.4-gpu-py3
 xhost -local:root
