@@ -12,7 +12,7 @@ xhost +local:root
 # NVIDIA_DRIVER=375
 
 if [ -z ${NVIDIA_DRIVER+x} ]; then
-	NVIDIA_DRIVER=$(nvidia-settings -q NvidiaDriverVersion | head -2 | tail -1 | sed 's/.*\([0-9][0-9][0-9]\).*/\1/') ;
+	NVIDIA_DRIVER=$(nvidia-settings -q NvidiaDriverVersion | head -2 | tail -1 | sed 's/.*\([0-9][0-9][0-9]\)\..*/\1/') ;
 fi
 if [ -z ${NVIDIA_DRIVER+x} ]; then
 	echo "Error: Could not determine NVIDIA driver version number. Please specify your driver version number manually in $0." 1>&2 ;
