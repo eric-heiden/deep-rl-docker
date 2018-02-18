@@ -71,7 +71,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     xserver-xorg-dev \
     libffi-dev \
     libxslt1.1 \
-    feedgnuplot
+    feedgnuplot \
+    libglew-dev \
+    parallel \
+    htop
 
 RUN pip3 install --upgrade pip
 

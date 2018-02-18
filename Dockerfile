@@ -70,7 +70,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     xpra \
     xserver-xorg-dev \
     libffi-dev \
-    libxslt1.1
+    libxslt1.1 \
+    libglew-dev \
+    parallel \
+    htop
 
 RUN pip3 install --upgrade pip
 

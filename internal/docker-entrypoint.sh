@@ -38,6 +38,12 @@ else \
 	fi \
 fi
 
+# copy MuJoCo to home folder
+rsync -a -v --ignore-existing /opt/mujoco/ $HOME/.mujoco/
+
+# Install DeepMind Control Suite
+RUN pip install git+git://github.com/deepmind/dm_control.git
+
 
 # # echo "export PYTHONPATH=/opt/rllab:$PYTHONPATH" >> "/home/$USER/.bashrc"
 # # export PYTHONPATH=/opt/rllab:$PYTHONPATH
@@ -46,7 +52,22 @@ fi
 
 # source "/home/$USER/.bashrc"
 
+echo "
+jupyter_notebook() {
+	jupyter notebook --allow-root --ip=* --port=8888 --no-browser &
+}
 
-# jupyter lab --allow-root --ip=* --port=8888 --no-browser &
+jupyter_lab() {
+	jupyter lab --allow-root --ip=* --port=8888 --no-browser &
+}
+
+parallelize() {
+	THREADS=\${2:-8}
+	echo \"Running \$THREADS threads of \$1\"
+	MASTER_TIME=\$(date +\"%Y-%m-%d-%H-%M-%S\")
+	echo \"Starting master at \" \$(date)
+	time parallel --no-notice --delay 5 \$3 CUDA_VISIBLE_DEVICES='' \$1 --seed {1} --master \$MASTER_TIME ::: \$(seq \$THREADS)
+}
+" >> $DOCKER_HOME/.bashrc
 
 exec /usr/local/bin/gosu $USER bash --rcfile $DOCKER_HOME/.bashrc
