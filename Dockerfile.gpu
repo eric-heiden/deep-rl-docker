@@ -95,7 +95,10 @@ RUN pip3 --no-cache-dir install \
     tqdm \
     pyopengl \
     ipdb \
-    cloudpickle
+    cloudpickle \
+    imageio \
+    mpi4py \
+    jsonpickle
 
 # Set up permissions to use same UID and GID as host system user
 # https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
@@ -162,6 +165,8 @@ ENV MUJOCO_PY_MJPRO_PATH=/opt/mujoco/mjpro150
 ENV MUJOCO_LICENSE_KEY=/opt/mujoco/mjkey.txt
 ENV MUJOCO_PY_MUJOCO_PATH=/opt/mujoco
 ENV LD_LIBRARY_PATH /opt/mujoco/mjpro150/bin:$LD_LIBRARY_PATH
+
+ENV TERM xterm-256color
 
 
 # Install mujoco-py

@@ -42,7 +42,7 @@ fi
 rsync -a -v --ignore-existing /opt/mujoco/ $HOME/.mujoco/
 
 # Install DeepMind Control Suite
-RUN pip install git+git://github.com/deepmind/dm_control.git
+sudo pip install git+git://github.com/deepmind/dm_control.git
 
 
 # # echo "export PYTHONPATH=/opt/rllab:$PYTHONPATH" >> "/home/$USER/.bashrc"
