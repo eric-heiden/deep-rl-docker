@@ -98,7 +98,8 @@ RUN pip3 --no-cache-dir install \
     cloudpickle \
     imageio \
     mpi4py \
-    jsonpickle
+    jsonpickle \
+    gtimer
 
 # Set up permissions to use same UID and GID as host system user
 # https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
