@@ -99,7 +99,16 @@ RUN pip3 --no-cache-dir install \
     imageio \
     mpi4py \
     jsonpickle \
-    gtimer
+    gtimer \
+    path.py \
+    cached-property \
+    flask \
+    joblib \
+    lasagne \
+    PyOpenGL \
+    six \
+    pyprind
+
 
 # Set up permissions to use same UID and GID as host system user
 # https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
