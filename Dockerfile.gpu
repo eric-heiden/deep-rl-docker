@@ -79,7 +79,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 RUN pip3 install --upgrade pip
 
 RUN pip3 --no-cache-dir install \
-    gym[all]==0.9.4 \
+    gym[all]==0.10.3 \
     scikit-image \
     plotly \
     ipykernel \
