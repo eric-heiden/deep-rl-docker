@@ -1,5 +1,5 @@
 FROM tensorflow/tensorflow:1.4.0-py3
-MAINTAINER USC RESL <heiden@usc.edu>
+MAINTAINER Eric Heiden <heiden@usc.edu>
 
 ARG USER
 ARG HOME
@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y \
 # install dependencies
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
+    apt-utils \
     curl \
     nano \
     vim \
@@ -43,6 +44,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     swig \
     libgtk2.0-dev \
     wget \
+    ca-certificates \
     unzip \
     aptitude \
     pkg-config \
@@ -73,12 +75,19 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libxslt1.1 \
     libglew-dev \
     parallel \
-    htop
+    htop \
+    apt-transport-https
+
+# install Sublime Text
+RUN wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - \
+    && echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list \
+    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y sublime-text
 
 RUN pip3 install --upgrade pip
 
 RUN pip3 --no-cache-dir install \
     gym[all]==0.10.3 \
+    mujoco-py \
     scikit-image \
     plotly \
     ipykernel \
@@ -93,7 +102,6 @@ RUN pip3 --no-cache-dir install \
     empy \
     tqdm \
     pyopengl \
-    mujoco-py==0.5.7 \
     ipdb \
     cloudpickle \
     imageio \
@@ -112,9 +120,6 @@ RUN pip3 --no-cache-dir install \
 
 # Set up permissions to use same UID and GID as host system user
 # https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
-RUN apt-get -y --no-install-recommends install \
-    ca-certificates \
-    curl
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture)" \
     && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture).asc" \
@@ -124,6 +129,10 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
 
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix
+# Jupyter Lab Bokeh extension requires NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash - \
+    && apt-get install -y nodejs
+RUN jupyter labextension install jupyterlab_bokeh
 
 # Install Baselines
 RUN cd /opt && git clone https://github.com/openai/baselines.git && cd baselines && pip install -e .
@@ -175,18 +184,6 @@ ENV TERM xterm-256color
 
 # Install mujoco-py
 RUN pip3 --no-cache-dir install mujoco-py==0.5.7
-# # see https://github.com/ryanjulian/mujoco-py/blob/master/Dockerfile
-# WORKDIR /opt
-# RUN curl -o /usr/local/bin/patchelf https://s3-us-west-2.amazonaws.com/openai-sci-artifacts/manual-builds/patchelf_0.9_amd64.elf \
-#     && chmod +x /usr/local/bin/patchelf
-
-# RUN git clone https://github.com/ryanjulian/mujoco-py.git
-# WORKDIR /opt/mujoco-py
-# RUN pip3 install -r requirements.txt
-# RUN pip3 install -r requirements.dev.txt
-# RUN python3 setup.py install
-# # Cythonize mujoco-py
-# RUN python3 -c "import mujoco_py; print('Successfully cythonized mujoco-py.')"
 
 # TensorBoard
 EXPOSE 6006

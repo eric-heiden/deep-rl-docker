@@ -10,7 +10,7 @@ xauth -b nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -b -f $XAUTH nmerge -
 docker run \
 	-it \
 	--volume=/home/:/home/:rw \
-	--volume=/Users/:/Users/:rw \
+	--volume=/media/:/media/:rw \
 	--volume=$XSOCK:$XSOCK:rw \
 	--volume=$XAUTH:$XAUTH:rw \
 	--env="XAUTHORITY=${XAUTH}" \
@@ -23,4 +23,5 @@ docker run \
 	--cap-add MKNOD \
 	--device /dev/fuse \
 	--security-opt apparmor:unconfined \
-	uscresl/deep-rl-docker:tf1.4.0-gym0.9.4-py3
+	--name "deep-rl-docker" \
+	uscresl/deep-rl-docker:tf1.4.0-gym0.10.3-py3
