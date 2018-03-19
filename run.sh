@@ -9,6 +9,7 @@ xauth -b nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -b -f $XAUTH nmerge -
 
 docker run \
 	-it \
+	--init \
 	--volume=/home/:/home/:rw \
 	--volume=/media/:/media/:rw \
 	--volume=$XSOCK:$XSOCK:rw \

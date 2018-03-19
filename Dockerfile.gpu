@@ -144,7 +144,8 @@ RUN pip3 --no-cache-dir install \
     lasagne \
     PyOpenGL \
     six \
-    pyprind
+    pyprind \
+    virtualenv
 
 # Set up permissions to use same UID and GID as host system user
 # https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
@@ -156,6 +157,12 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     && chmod +x /usr/local/bin/gosu
 # disable password prompt for sudo
 RUN echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo env EDITOR="tee -a" visudo
+
+# Install Anaconda 3
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh \
+    && wget --quiet https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh -O ~/anaconda.sh \
+    && /bin/bash ~/anaconda.sh -b -p /opt/conda \
+    && rm ~/anaconda.sh
 
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix

@@ -31,6 +31,7 @@ DOCKER_VISUAL_NVIDIA="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/
 nvidia-docker run \
 	-it \
 	--rm \
+	--init \
 	$DOCKER_VISUAL_NVIDIA \
 	--volume=/home/:/home/:rw \
 	--volume=/media/:/media/:rw \

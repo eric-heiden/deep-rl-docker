@@ -115,7 +115,8 @@ RUN pip3 --no-cache-dir install \
     lasagne \
     PyOpenGL \
     six \
-    pyprind
+    pyprind \
+    virtualenv
 
 
 # Set up permissions to use same UID and GID as host system user
@@ -126,6 +127,12 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     && gpg --verify /usr/local/bin/gosu.asc \
     && rm /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu
+
+# Install Anaconda 3
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh \
+    && wget --quiet https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh -O ~/anaconda.sh \
+    && /bin/bash ~/anaconda.sh -b -p /opt/conda \
+    && rm ~/anaconda.sh
 
 # Install Jupyter Lab
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix
