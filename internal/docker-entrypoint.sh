@@ -20,6 +20,7 @@ echo "export HOME=$DOCKER_HOME" >> "$DOCKER_HOME/.bashrc"
 
 echo "export \$(dbus-launch)" >> "$DOCKER_HOME/.bashrc"
 echo "export LD_LIBRARY_PATH=/external_libs:\$LD_LIBRARY_PATH" >> "$DOCKER_HOME/.bashrc"
+echo "export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so:/external_libs/libGL.so" >> "$DOCKER_HOME/.bashrc"
 
 echo "export MUJOCO_PY_MJPRO_PATH=/opt/mujoco/mjpro131" >> "$DOCKER_HOME/.bashrc"
 echo "export LD_LIBRARY_PATH=/opt/mujoco/mjpro131/bin:\$LD_LIBRARY_PATH" >> "$DOCKER_HOME/.bashrc"
