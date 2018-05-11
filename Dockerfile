@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.4.0-py3
+FROM tensorflow/tensorflow:1.8.0-py3
 MAINTAINER Eric Heiden <heiden@usc.edu>
 
 ARG USER
