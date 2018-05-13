@@ -24,13 +24,13 @@ fi
 
 
 # variable with all the needed values for libgl and to be accessed through LD_LIBRARY_PATH
-DOCKER_VISUAL_NVIDIA="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/nvidia0 --device /dev/nvidiactl -v /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0:/external_libs/libXau.so.6.0.0 -v /usr/lib/x86_64-linux-gnu/libXdmcp.so.6:/external_libs/libXdmcp.so.6 -v /usr/lib/x86_64-linux-gnu/libXext.so.6:/external_libs/libXext.so.6 -v /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0:/external_libs/libXdmcp.so.6.0.0 -v /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0:/external_libs/libX11.so.6.3.0 -v /usr/lib/x86_64-linux-gnu/libxcb.so.1:/external_libs/libxcb.so.1 -v /usr/lib/nvidia-$NVIDIA_DRIVER/:/external_libs/"
+DOCKER_VISUAL_NVIDIA="-v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/nvidia0 --device /dev/nvidiactl"
 # run the program
-# docker run --rm $DOCKER_VISUAL_NVIDIA -e QT_X11_NO_MITSHM=1 -v $HOME/.ros:$HOME/.ros:rw -v $HOME/.gazebo:$HOME/.gazebo:rw osrf/ros:kinetic-desktop-full roslaunch gazebo_ros empty_world.launch
+# docker run --rm $DOCKER_VISUAL_NVIDIA -e QT_X11_NO_MITSHM=1 " \
+# "-v $HOME/.ros:$HOME/.ros:rw -v $HOME/.gazebo:$HOME/.gazebo:rw osrf/ros:kinetic-desktop-full roslaunch gazebo_ros empty_world.launch
 
 nvidia-docker run \
 	-it \
-	--rm \
 	--init \
 	$DOCKER_VISUAL_NVIDIA \
 	--volume=/home/:/home/:rw \
@@ -47,5 +47,5 @@ nvidia-docker run \
 	--device /dev/fuse \
 	--security-opt apparmor:unconfined \
 	--name "deep-rl-docker" \
-	uscresl/deep-rl-docker:tf1.4.0-gym0.10.3-gpu-py3
+	uscresl/deep-rl-docker:tf1.8.0-gym0.10.3-gpu-py3
 xhost -local:root
