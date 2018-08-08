@@ -25,4 +25,4 @@ docker run \
 	--device /dev/fuse \
 	--security-opt apparmor:unconfined \
 	--name "deep-rl-docker" \
-	uscresl/deep-rl-docker:tf1.4.0-gym0.10.3-py3
+	uscresl/deep-rl-docker:tf1.8.0-gym0.10.3-py3
