@@ -21,7 +21,7 @@ Execute `run.sh` or `run_gpu.sh`. This will run the container in foreground mode
 
 Jupyter Lab will be published on port 8888. If you run TensorBoard it will be accessible on port 6006. Ports are tunneled through to your host system and can be reconfigured in `run.sh` or `run_gpu.sh`.
 
-The container will define a user (`$USER`) named `wal` which has its home folder under `/home/wal` on the host system via a shared volume. This user has the same user identifier (UID) as the host system's user running the container to ensure file permissions are set up correctly in the shared volumes.
+The container will install its home directory under `$HOME/.deep-rl-docker` on the host system via a shared volume. The docker's user has the same user identifier (UID) as the host system's user running the container to ensure file permissions are set up correctly in the shared volumes.
 
 ### Running deep-rl-docker on OSX with visualizations
 Currently we do not have a solution to run the *deep-rl-docker* on OSX with visualizations in roboschool due to OpenGL problems. A workaround using Oracle VirtualBox that works with Virtual Machines (VMs) is listed below:
